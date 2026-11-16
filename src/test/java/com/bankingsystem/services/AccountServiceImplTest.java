@@ -1,8 +1,13 @@
 package com.bankingsystem.services;
 
+import com.bankingsystem.data.models.Account;
+import com.bankingsystem.data.models.Bank;
+import com.bankingsystem.data.models.Customer;
 import com.bankingsystem.data.models.enums.AccountType;
 import com.bankingsystem.data.models.enums.BankCode;
 import com.bankingsystem.data.repositories.AccountRepository;
+import com.bankingsystem.data.repositories.BankRepository;
+import com.bankingsystem.data.repositories.CustomerRepository;
 import com.bankingsystem.dtos.requests.CreateAccountRequest;
 import com.bankingsystem.dtos.response.CreateAccountResponse;
 import com.bankingsystem.exceptions.AccountException;
@@ -24,9 +29,32 @@ class AccountServiceImplTest {
     @Autowired
     private AccountRepository accountRepository;
 
+    @Autowired
+    private BankRepository bankRepository;
+
+    @Autowired
+    private CustomerRepository customerRepository;
+
+    private String bankId;
+    private String customerId;
+
     @BeforeEach
     public void setUp() {
         accountRepository.deleteAll();
+        bankRepository.deleteAll();
+        customerRepository.deleteAll();
+
+        Bank bank = new Bank();
+        bank.setName("Access Bank");
+        bank.setBankCode("044");
+        bankId = bankRepository.save(bank).getId();
+
+        Customer customer = new Customer();
+        customer.setFirstName("Lawrence");
+        customer.setLastName("John");
+        customer.setEmail("lawjoh20@gmail.com");
+        customerId = customerRepository.save(customer).getId();
+
     }
 
     @Test
@@ -34,15 +62,20 @@ class AccountServiceImplTest {
         assertEquals(0, accountRepository.count());
 
         CreateAccountRequest request = new CreateAccountRequest();
-        request.setCustomerId("customer-1");
-        request.setBankId("bank-1");
+        request.setCustomerEmail("lawjoh20@gmail.com");
         request.setBankCode(BankCode.ACCESS_BANK);
         request.setAccountType(AccountType.SAVINGS);
         request.setCurrencyCode("NGN");
 
-        accountService.createAccount(request);
+        CreateAccountResponse response = accountService.createAccount(request);
 
         assertEquals(1, accountRepository.count());
+        assertNotNull(response.getId());
+        assertTrue(response.getAccountNumber().matches("\\d{10}"));
+
+        Account savedAccount = accountRepository.findAll().get(0);
+        assertEquals(customerId, savedAccount.getCustomerId());
+        assertEquals(bankId, savedAccount.getBankId());
     }
 
 //    @Test

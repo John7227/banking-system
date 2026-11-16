@@ -9,11 +9,8 @@ public class AccountRequestValidator {
         if (request == null) {
             throw new AccountException("Request is required");
         }
-        if (isBlank(request.getCustomerId())) {
-            throw new AccountException("Customer ID is required");
-        }
-        if (isBlank(request.getBankId())) {
-            throw new AccountException("Bank ID is required");
+        if (isBlank(request.getCustomerEmail())) {
+            throw new AccountException("Customer email is required");
         }
         if (request.getBankCode() == null) {
             throw new AccountException("Bank code is required");
