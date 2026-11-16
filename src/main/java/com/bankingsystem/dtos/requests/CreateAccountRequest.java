@@ -11,10 +11,9 @@ import java.time.LocalDate;
 @Data
 public class CreateAccountRequest {
 
+    private String customerEmail;
     private AccountType accountType;
     private String currencyCode;
-    private String customerId;
     private BankCode bankCode;
-    private String bankId;
 
 }

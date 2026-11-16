@@ -10,11 +10,11 @@ import java.time.LocalDate;
 
 public class AccountMapper {
 
-    public static Account toAccount(CreateAccountRequest request, String accountNumber) {
+    public static Account toAccount(CreateAccountRequest request, String accountNumber, String customerId, String bankId) {
             Account account = new Account();
             account.setAccountNumber(accountNumber);
-            account.setCustomerId(request.getCustomerId());
-            account.setBankId(request.getBankId());
+            account.setCustomerId(customerId);
+            account.setBankId(bankId);
             account.setAccountType(request.getAccountType());
             account.setCurrencyCode(request.getCurrencyCode());
             account.setBalance(BigDecimal.ZERO);
