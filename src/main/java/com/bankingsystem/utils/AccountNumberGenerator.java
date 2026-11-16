@@ -1,5 +1,7 @@
 package com.bankingsystem.utils;
 
+import com.bankingsystem.exceptions.AccountException;
+
 import java.util.Random;
 
 public class AccountNumberGenerator {
@@ -13,21 +15,20 @@ public class AccountNumberGenerator {
             accountNumber += myNumber;
         }
 
-        isValid(bankCode, accountNumber);
+        return completeAccountNumber(bankCode, accountNumber);
 
-        return accountNumber;
     }
 
-    public static String isValid(String bankCode, String accountNumber) {
-        if(accountNumber == null || bankCode.length() != 3 || accountNumber.length() != 9)
-            throw new IllegalArgumentException("Account Number Must Be Exactly 9 Digits");
+    public static String completeAccountNumber(String bankCode, String accountNumber) {
+        if(bankCode == null || !bankCode.matches("\\d{3}") || accountNumber == null || !accountNumber.matches("\\d{9}"))
+            throw new AccountException("Bank code must be 3 digits and serial number must be 9 digits");
 
         String totalSum = bankCode + accountNumber;
 
         int[] multipliers = {3, 7, 3, 3, 7, 3, 3, 7, 3, 3, 7, 3};
 
         int result = 0;
-        for(int index = 0; index < totalSum.length() - 1; index++) {
+        for(int index = 0; index < totalSum.length(); index++) {
             int currentNumber = Character.getNumericValue(totalSum.charAt(index));
             result += currentNumber * multipliers[index];
         }
@@ -40,14 +41,7 @@ public class AccountNumberGenerator {
             calculatedResult = 0;
         }
 
-        String completed10DigitNumber = accountNumber + calculatedResult;
+        return accountNumber + calculatedResult;
 
-        int finalDigit = Character.getNumericValue(completed10DigitNumber.charAt(completed10DigitNumber.length() - 1));
-
-        if(calculatedResult == finalDigit) {
-            return accountNumber;
-        }
-
-        throw new IllegalArgumentException("Account Number Not Valid");
     }
 }
