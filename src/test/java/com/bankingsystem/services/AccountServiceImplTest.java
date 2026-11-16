@@ -58,7 +58,7 @@ class AccountServiceImplTest {
     }
 
     @Test
-    public void test_thatWhenICreateAccount_countIsOne() {
+    public void test_thatWhenICreateAccount_countIsOne_andReturnsAccountDetails() {
         assertEquals(0, accountRepository.count());
 
         CreateAccountRequest request = new CreateAccountRequest();
@@ -72,62 +72,59 @@ class AccountServiceImplTest {
         assertEquals(1, accountRepository.count());
         assertNotNull(response.getId());
         assertTrue(response.getAccountNumber().matches("\\d{10}"));
-
         Account savedAccount = accountRepository.findAll().get(0);
         assertEquals(customerId, savedAccount.getCustomerId());
         assertEquals(bankId, savedAccount.getBankId());
     }
 
-//    @Test
-//    public void testCreateAccount_returnsAccountDetails() {
-//        assertEquals(0, accountRepository.count());
-//
-//        CreateAccountRequest request = new CreateAccountRequest();
-//        request.setCustomerId("customer-1");
-//        request.setBankId("bank-1");
-//        request.setBankCode(BankCode.ACCESS_BANK);
-//        request.setAccountType(AccountType.SAVINGS);
-//        request.setCurrencyCode("NGN");
-//
-//        CreateAccountResponse response = accountService.createAccount(request);
-//
-//        assertNotNull(response.getId());
-//        assertNotNull(response.getAccountNumber());
-//        assertEquals(AccountType.SAVINGS, response.getAccountType());
-//        assertEquals(BigDecimal.ZERO, response.getBalance());
-//        assertEquals(1, accountRepository.count());
-//        assertEquals(10, response.getAccountNumber().length());
-//    }
-//
-//    @Test
-//    public void testCreateAccountWhenCustomerIdIsNull_throwsException() {
-//        assertEquals(0, accountRepository.count());
-//
-//        CreateAccountRequest request = new CreateAccountRequest();
-//        request.setCustomerId(null);
-//        request.setBankId("bank-1");
-//        request.setBankCode(BankCode.ACCESS_BANK);
-//        request.setAccountType(AccountType.SAVINGS);
-//        request.setCurrencyCode("NGN");
-//
-//        assertThrows(AccountException.class, () -> accountService.createAccount(request));
-//
-//        assertEquals(0, accountRepository.count());
-//    }
+    @Test
+    public void testCreateAccount_returnsAccountDetails() {
+        assertEquals(0, accountRepository.count());
 
-//    @Test
-//    public void testCreateAccountWithoutCustomerId_throwsException() {
-//        assertEquals(0, accountRepository.count());
-//
-//        CreateAccountRequest request = new CreateAccountRequest();
-//        request.setCustomerId(" ");
-//        request.setB;
-//    }
+        CreateAccountRequest request = new CreateAccountRequest();
+        request.setCustomerEmail("lawjoh20@gmail.com");
+        request.setBankCode(BankCode.ACCESS_BANK);
+        request.setAccountType(AccountType.SAVINGS);
+        request.setCurrencyCode("NGN");
 
+        CreateAccountResponse response = accountService.createAccount(request);
 
+        assertNotNull(response.getId());
+        assertEquals(AccountType.SAVINGS, response.getAccountType());
+        assertEquals(BigDecimal.ZERO, response.getBalance());
+        assertEquals(1, accountRepository.count());
+        assertTrue(response.getAccountNumber().matches("\\d{10}"));
+    }
 
+    @Test
+    public void testCreateAccountWhenCustomerEmailIsNull_throwsException() {
+        assertEquals(0, accountRepository.count());
 
+        CreateAccountRequest request = new CreateAccountRequest();
+        request.setCustomerEmail(null);
+        request.setBankCode(BankCode.ACCESS_BANK);
+        request.setAccountType(AccountType.SAVINGS);
+        request.setCurrencyCode("NGN");
 
+        assertThrows(AccountException.class, () -> accountService.createAccount(request));
+
+        assertEquals(0, accountRepository.count());
+    }
+
+    @Test
+    public void testCreateAccountWithoutCustomerEmail_throwsException() {
+        assertEquals(0, accountRepository.count());
+
+        CreateAccountRequest request = new CreateAccountRequest();
+        request.setCustomerEmail(" ");
+        request.setBankCode(BankCode.ACCESS_BANK);
+        request.setAccountType(AccountType.SAVINGS);
+        request.setCurrencyCode("NGN");
+
+        assertThrows(AccountException.class, ()-> accountService.createAccount(request));
+
+        assertEquals(0, accountRepository.count());
+    }
 
 //    @Test
 //    public void testCreateAccountWithoutAccountType_throwsException() {}
