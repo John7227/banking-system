@@ -11,14 +11,10 @@ import java.time.LocalDate;
 @Data
 public class CreateAccountRequest {
 
-    private String accountNumber;
-    private AccountStatus status;
-    private BigDecimal balance;
     private AccountType accountType;
     private String currencyCode;
     private String customerId;
     private BankCode bankCode;
     private String bankId;
-    private LocalDate createdAt;
 
 }

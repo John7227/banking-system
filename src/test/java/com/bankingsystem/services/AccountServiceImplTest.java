@@ -34,7 +34,6 @@ class AccountServiceImplTest {
         assertEquals(0, accountRepository.count());
 
         CreateAccountRequest request = new CreateAccountRequest();
-        request.setAccountNumber("1234567890");
         request.setCustomerId("customer-1");
         request.setBankId("bank-1");
         request.setBankCode(BankCode.ACCESS_BANK);
@@ -51,7 +50,6 @@ class AccountServiceImplTest {
         assertEquals(0, accountRepository.count());
 
         CreateAccountRequest request = new CreateAccountRequest();
-        request.setAccountNumber("1234567890");
         request.setCustomerId("customer-1");
         request.setBankId("bank-1");
         request.setBankCode(BankCode.ACCESS_BANK);
@@ -61,10 +59,11 @@ class AccountServiceImplTest {
         CreateAccountResponse response = accountService.createAccount(request);
 
         assertNotNull(response.getId());
-        assertEquals("1234567890", response.getAccountNumber());
+        assertNotNull(response.getAccountNumber());
         assertEquals(AccountType.SAVINGS, response.getAccountType());
         assertEquals(BigDecimal.ZERO, response.getBalance());
         assertEquals(1, accountRepository.count());
+        assertEquals(10, response.getAccountNumber().length());
     }
 
 }

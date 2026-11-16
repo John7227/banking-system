@@ -1,7 +1,6 @@
 package com.bankingsystem.services;
 
 import com.bankingsystem.data.models.Account;
-import com.bankingsystem.data.models.enums.AccountStatus;
 import com.bankingsystem.data.repositories.AccountRepository;
 import com.bankingsystem.dtos.requests.CreateAccountRequest;
 import com.bankingsystem.dtos.response.CreateAccountResponse;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import static com.bankingsystem.utils.AccountMapper.toResponse;
 import static com.bankingsystem.utils.AccountMapper.toAccount;
+import static com.bankingsystem.utils.AccountNumberGenerator.generateAccountNumber;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -23,11 +23,15 @@ public class AccountServiceImpl implements AccountService {
     public CreateAccountResponse createAccount(CreateAccountRequest request) {
 
         AccountRequestValidator.validate(request);
-        if(accountRepository.existsByAccountNumber(request.getAccountNumber())) {
+
+        String bankCode = request.getBankCode().getBankCode();
+        String accountNumber = generateAccountNumber(bankCode);
+
+        if(accountRepository.existsByAccountNumber(accountNumber)) {
             throw new DuplicateAccountNumberException("Account number already exists");
         }
 
-        Account newAccount = toAccount(request, request.getAccountNumber());
+        Account newAccount = toAccount(request, accountNumber);
         Account savedAccount = accountRepository.save(newAccount);
 
         return toResponse(savedAccount);
