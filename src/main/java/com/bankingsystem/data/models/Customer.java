@@ -16,6 +16,6 @@ public class Customer {
     private String lastName;
     private String email;
     private String phoneNumber;
-    private String passwordHash;
+    private String password;
     private LocalDate createdAt;
 }
