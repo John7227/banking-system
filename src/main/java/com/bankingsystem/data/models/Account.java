@@ -2,6 +2,7 @@ package com.bankingsystem.data.models;
 
 import com.bankingsystem.data.models.enums.AccountStatus;
 import com.bankingsystem.data.models.enums.AccountType;
+import com.bankingsystem.data.models.enums.BankCode;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -22,5 +23,6 @@ public class Account {
     private String currencyCode;
     private String customerId;
     private String bankId;
+    private BankCode bankCode;
     private LocalDate createdAt;
 }

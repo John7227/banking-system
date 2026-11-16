@@ -1,0 +1,29 @@
+package com.bankingsystem.data.models.enums;
+
+public enum BankCode {
+
+    ACCESS_BANK,
+    AFRIBANK,
+    CITIBANK,
+    DIAMOND_BANK,
+    ECOBANK,
+    EQUITORIAL_TRUST_BANK,
+    FIRST_BANK,
+    FCMB,
+    FIDELITY_BANK,
+    FINBANK,
+    GUARANTY_TRUST_BANK,
+    INTERCONTINENTAL_BANK,
+    OCEANIC_BANK,
+    BANKPHB,
+    SKYE_BANK,
+    SPRING_BANK,
+    STANBIC_IBTC,
+    STANDARD_CHARTERED_BANK,
+    STERLING_BANK,
+    UNITED_BANK_FOR_AFRICA,
+    UNION_BANK,
+    WEMA_BANK,
+    ZENITH_BANK,
+    UNITY_BANK
+}

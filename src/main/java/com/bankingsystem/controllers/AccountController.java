@@ -1,6 +1,7 @@
 package com.bankingsystem.controllers;
 
 import com.bankingsystem.data.models.Account;
+import com.bankingsystem.dtos.requests.CreateAccountRequest;
 import com.bankingsystem.dtos.response.ApiResponse;
 import com.bankingsystem.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,9 @@ public class AccountController {
     private AccountService accountService;
 
     @PostMapping("/CreateAccount")
-    public ResponseEntity<?> createAccount(@RequestBody Account account) {
+    public ResponseEntity<?> createAccount(@RequestBody CreateAccountRequest request) {
         try{
-            return new ResponseEntity<>(new ApiResponse(true, accountService.createAccount(account)), HttpStatus.OK);
+            return new ResponseEntity<>(new ApiResponse(true, accountService.createAccount(request)), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(new ApiResponse(false, e.getMessage()), HttpStatus.BAD_REQUEST);
         }
