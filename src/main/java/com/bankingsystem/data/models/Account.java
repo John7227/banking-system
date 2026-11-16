@@ -1,6 +1,7 @@
 package com.bankingsystem.data.models;
 
 import com.bankingsystem.data.models.enums.AccountStatus;
+import com.bankingsystem.data.models.enums.AccountType;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -17,6 +18,7 @@ public class Account {
     private String accountNumber;
     private AccountStatus status;
     private BigDecimal balance;
+    private AccountType accountType;
     private String currencyCode;
     private String customerId;
     private String bankId;
