@@ -122,7 +122,7 @@ class AccountServiceImplTest {
         assertEquals(0, accountRepository.count());
     }
 
-//    @Test
-//    public void testCreateAccountWithoutAccountType_throwsException() {}
+    @Test
+    public void testCreateAccountWhenCustomerDoesNotExist_throwsException() {}
 
 }
