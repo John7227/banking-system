@@ -123,6 +123,72 @@ class AccountServiceImplTest {
     }
 
     @Test
-    public void testCreateAccountWhenCustomerDoesNotExist_throwsException() {}
+    public void testCreateAccountWithAnInvalidEmail_throwsException() {
+        assertEquals(0, accountRepository.count());
 
+        CreateAccountRequest request = new CreateAccountRequest();
+        request.setCustomerEmail("lawjoh20gmail.com");
+        request.setBankCode(BankCode.ACCESS_BANK);
+        request.setAccountType(AccountType.SAVINGS);
+
+        assertThrows(AccountException.class, ()-> accountService.createAccount(request));
+
+        assertEquals(0, accountRepository.count());
+    }
+
+    @Test
+    public void testCreateAccountWhenBankCodeDoesNotExist_throwsException() {
+        assertEquals(0, accountRepository.count());
+
+        CreateAccountRequest request = new CreateAccountRequest();
+        request.setCustomerEmail("lawjoh20gmail.com");
+        request.setBankCode(BankCode.CITIBANK);
+        request.setAccountType(AccountType.SAVINGS);
+
+        assertThrows(AccountException.class, ()-> accountService.createAccount(request));
+
+        assertEquals(0, accountRepository.count());
+    }
+
+    @Test
+    public void testCreateAccountWithoutBankCode_throwsException() {
+        assertEquals(0, accountRepository.count());
+
+        CreateAccountRequest request = new CreateAccountRequest();
+        request.setCustomerEmail("lawjoh20gmail.com");
+        request.setBankCode(null);
+        request.setAccountType(AccountType.SAVINGS);
+
+        assertThrows(AccountException.class, ()-> accountService.createAccount(request));
+
+        assertEquals(0, accountRepository.count());
+    }
+
+    @Test
+    public void testCreateAccountWhenAccountTypeDoesNotExist_throwsException() {
+        assertEquals(0, accountRepository.count());
+
+        CreateAccountRequest request = new CreateAccountRequest();
+        request.setCustomerEmail("lawjoh20gmail.com");
+        request.setBankCode(BankCode.CITIBANK);
+        request.setAccountType(AccountType.CHECKING);
+
+        assertThrows(AccountException.class, ()-> accountService.createAccount(request));
+
+        assertEquals(0, accountRepository.count());
+    }
+
+    @Test
+    public void testCreateAccountWithoutAccountType_throwsException() {
+        assertEquals(0, accountRepository.count());
+
+        CreateAccountRequest request = new CreateAccountRequest();
+        request.setCustomerEmail("lawjoh20gmail.com");
+        request.setBankCode(BankCode.ACCESS_BANK);
+        request.setAccountType(null);
+
+        assertThrows(AccountException.class, ()-> accountService.createAccount(request));
+
+        assertEquals(0, accountRepository.count());
+    }
 }

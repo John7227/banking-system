@@ -18,6 +18,11 @@ public class AccountRequestValidator {
         if (request.getAccountType() == null) {
             throw new AccountException("Account type is required");
         }
+        String email = request.getCustomerEmail();
+        if(email == null || email.isBlank() || !email.contains("@") || !email.contains(".")) {
+            throw new AccountException("Enter a valid email");
+        }
+
     }
 
     private static boolean isBlank(String value) {
