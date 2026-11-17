@@ -20,7 +20,6 @@ public class Account {
     private AccountStatus status;
     private BigDecimal balance;
     private AccountType accountType;
-    private String currencyCode;
     private String customerId;
     private String bankId;
     private BankCode bankCode;

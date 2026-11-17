@@ -16,6 +16,5 @@ public class CreateAccountResponse {
     private AccountType accountType;
     private AccountStatus status;
     private BigDecimal balance;
-    private String currencyCode;
     private LocalDate createdAt;
 }

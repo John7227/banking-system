@@ -18,9 +18,6 @@ public class AccountRequestValidator {
         if (request.getAccountType() == null) {
             throw new AccountException("Account type is required");
         }
-        if (isBlank(request.getCurrencyCode())) {
-            throw new AccountException("Currency code is required");
-        }
     }
 
     private static boolean isBlank(String value) {

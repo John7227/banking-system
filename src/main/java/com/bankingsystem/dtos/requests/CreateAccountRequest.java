@@ -13,7 +13,6 @@ public class CreateAccountRequest {
 
     private String customerEmail;
     private AccountType accountType;
-    private String currencyCode;
     private BankCode bankCode;
 
 }

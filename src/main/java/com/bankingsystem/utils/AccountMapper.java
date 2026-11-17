@@ -16,7 +16,6 @@ public class AccountMapper {
             account.setCustomerId(customerId);
             account.setBankId(bankId);
             account.setAccountType(request.getAccountType());
-            account.setCurrencyCode(request.getCurrencyCode());
             account.setBalance(BigDecimal.ZERO);
             account.setStatus(AccountStatus.ACTIVE);
             account.setCreatedAt(LocalDate.now());
@@ -31,7 +30,6 @@ public class AccountMapper {
         response.setAccountType(account.getAccountType());
         response.setStatus(account.getStatus());
         response.setBalance(account.getBalance());
-        response.setCurrencyCode(account.getCurrencyCode());
         response.setCreatedAt(account.getCreatedAt());
         return response;
     }

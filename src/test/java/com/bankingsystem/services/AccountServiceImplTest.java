@@ -65,7 +65,6 @@ class AccountServiceImplTest {
         request.setCustomerEmail("lawjoh20@gmail.com");
         request.setBankCode(BankCode.ACCESS_BANK);
         request.setAccountType(AccountType.SAVINGS);
-        request.setCurrencyCode("NGN");
 
         CreateAccountResponse response = accountService.createAccount(request);
 
@@ -85,7 +84,6 @@ class AccountServiceImplTest {
         request.setCustomerEmail("lawjoh20@gmail.com");
         request.setBankCode(BankCode.ACCESS_BANK);
         request.setAccountType(AccountType.SAVINGS);
-        request.setCurrencyCode("NGN");
 
         CreateAccountResponse response = accountService.createAccount(request);
 
@@ -104,7 +102,6 @@ class AccountServiceImplTest {
         request.setCustomerEmail(null);
         request.setBankCode(BankCode.ACCESS_BANK);
         request.setAccountType(AccountType.SAVINGS);
-        request.setCurrencyCode("NGN");
 
         assertThrows(AccountException.class, () -> accountService.createAccount(request));
 
@@ -119,7 +116,6 @@ class AccountServiceImplTest {
         request.setCustomerEmail(" ");
         request.setBankCode(BankCode.ACCESS_BANK);
         request.setAccountType(AccountType.SAVINGS);
-        request.setCurrencyCode("NGN");
 
         assertThrows(AccountException.class, ()-> accountService.createAccount(request));
 
