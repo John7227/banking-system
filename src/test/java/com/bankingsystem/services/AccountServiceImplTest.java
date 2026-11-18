@@ -364,16 +364,4 @@ class AccountServiceImplTest {
         assertEquals(0, transactionRepository.count());
     }
 
-
-
-
-
-
-
-
-//    testDepositMoneyWithZeroAmount_ThrowsException
-//    request.setAmount(BigDecimal.ZERO);
-//    testDepositNegativeAmount_ThrowsException
-//    testDepositMoneyWhenAccountDoesNotExist_ThrowsException
-
 }
