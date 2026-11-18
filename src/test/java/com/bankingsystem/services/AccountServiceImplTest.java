@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -259,7 +260,7 @@ class AccountServiceImplTest {
         depositRequest.setPin("1234");
         depositRequest.setAmount(new BigDecimal("500.00"));
 
-        DepositResponse response = new DepositResponse();
+        DepositResponse response = accountService.deposit(depositRequest);
 
         assertEquals(new BigDecimal("500.00"), response.getNewBalance());
         assertEquals(new BigDecimal("500.00"), response.getDepositedAmount());
@@ -268,6 +269,28 @@ class AccountServiceImplTest {
         assertEquals(1, transactionRepository.count());
         assertEquals(1, accountRepository.count());
 
+        Optional<Account> result = accountRepository.findByAccountNumber(createdAccount.getAccountNumber());
+        if(result.isEmpty()) {
+            throw new AccountException("Account not found");
+        }
+        Account updatedAccount = result.get();
+        assertEquals(new BigDecimal("500.00"), updatedAccount.getBalance());
     }
+
+
+
+
+
+
+
+
+
+
+
+
+//    testDepositMoneyWithWrongPin_ThrowsException
+//    testDepositMoneyWithZeroAmount_ThrowsException
+//    testDepositNegativeAmount_ThrowsException
+//    testDepositMoneyWhenAccountDoesNotExist_ThrowsException
 
 }

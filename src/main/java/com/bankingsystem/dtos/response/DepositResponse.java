@@ -11,7 +11,7 @@ public class DepositResponse {
 
     private String accountNumber;
     private BigDecimal depositedAmount;
-    private String newBalance;
+    private BigDecimal newBalance;
     private String transactionId;
     private TransactionStatus status;
     private LocalDate createdAt;
