@@ -62,4 +62,19 @@ public class AccountServiceImpl implements AccountService {
 
         return toResponse(savedAccount);
     }
+
+    @Override
+    public CreateAccountResponse findAccountByAccountNumber(String accountNumber) {
+
+        if(accountNumber == null || !accountNumber.matches("\\d{10}")) {
+            throw new AccountException("Account number must be exactly 10 digits");
+        }
+
+        Optional<Account> result = accountRepository.findByAccountNumber(accountNumber);
+        if(result.isEmpty()) {
+            throw new AccountException("Account not found");
+        }
+        Account account = result.get();
+        return toResponse(account);
+    }
 }

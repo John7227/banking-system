@@ -8,4 +8,5 @@ import org.springframework.stereotype.Service;
 public interface AccountService {
 
     CreateAccountResponse createAccount(CreateAccountRequest request);
+    CreateAccountResponse findAccountByAccountNumber(String accountNumber);
 }
