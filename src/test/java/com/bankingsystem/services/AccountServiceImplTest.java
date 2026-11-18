@@ -306,6 +306,10 @@ class AccountServiceImplTest {
         assertEquals(0, transactionRepository.count());
     }
 
+    @Test
+    public void testDepositMoneyWithZeroAmount_ThrowsException() {
+
+    }
 
 
 
@@ -316,8 +320,8 @@ class AccountServiceImplTest {
 
 
 
-//    testDepositMoneyWithWrongPin_ThrowsException
 //    testDepositMoneyWithZeroAmount_ThrowsException
+//    request.setAmount(BigDecimal.ZERO);
 //    testDepositNegativeAmount_ThrowsException
 //    testDepositMoneyWhenAccountDoesNotExist_ThrowsException
 
