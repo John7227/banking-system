@@ -17,6 +17,7 @@ public class Account {
     @Id
     private String id;
     private String accountNumber;
+    private String pin;
     private AccountStatus status;
     private BigDecimal balance;
     private AccountType accountType;

@@ -14,5 +14,6 @@ public class CreateAccountRequest {
     private String customerEmail;
     private AccountType accountType;
     private BankCode bankCode;
+    private String pin;
 
 }

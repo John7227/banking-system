@@ -22,6 +22,9 @@ public class AccountRequestValidator {
         if(email == null || email.isBlank() || !email.contains("@") || !email.contains(".")) {
             throw new AccountException("Enter a valid email");
         }
+        if(request.getPin() == null || !request.getPin().matches("\\d{4}")) {
+            throw new AccountException("PIN must be exactly 4 digits");
+        }
 
     }
 

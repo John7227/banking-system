@@ -65,6 +65,7 @@ class AccountServiceImplTest {
         request.setCustomerEmail("lawjoh20@gmail.com");
         request.setBankCode(BankCode.ACCESS_BANK);
         request.setAccountType(AccountType.SAVINGS);
+        request.setPin("1234");
 
         CreateAccountResponse response = accountService.createAccount(request);
 
@@ -84,6 +85,7 @@ class AccountServiceImplTest {
         request.setCustomerEmail("lawjoh20@gmail.com");
         request.setBankCode(BankCode.ACCESS_BANK);
         request.setAccountType(AccountType.SAVINGS);
+        request.setPin("1234");
 
         CreateAccountResponse response = accountService.createAccount(request);
 
@@ -102,6 +104,7 @@ class AccountServiceImplTest {
         request.setCustomerEmail(null);
         request.setBankCode(BankCode.ACCESS_BANK);
         request.setAccountType(AccountType.SAVINGS);
+        request.setPin("1234");
 
         assertThrows(AccountException.class, () -> accountService.createAccount(request));
 
@@ -116,6 +119,7 @@ class AccountServiceImplTest {
         request.setCustomerEmail(" ");
         request.setBankCode(BankCode.ACCESS_BANK);
         request.setAccountType(AccountType.SAVINGS);
+        request.setPin("1234");
 
         assertThrows(AccountException.class, ()-> accountService.createAccount(request));
 
@@ -130,6 +134,7 @@ class AccountServiceImplTest {
         request.setCustomerEmail("lawjoh20gmail.com");
         request.setBankCode(BankCode.ACCESS_BANK);
         request.setAccountType(AccountType.SAVINGS);
+        request.setPin("1234");
 
         assertThrows(AccountException.class, ()-> accountService.createAccount(request));
 
@@ -144,6 +149,7 @@ class AccountServiceImplTest {
         request.setCustomerEmail("lawjoh20gmail.com");
         request.setBankCode(BankCode.CITIBANK);
         request.setAccountType(AccountType.SAVINGS);
+        request.setPin("1234");
 
         assertThrows(AccountException.class, ()-> accountService.createAccount(request));
 
@@ -158,6 +164,7 @@ class AccountServiceImplTest {
         request.setCustomerEmail("lawjoh20gmail.com");
         request.setBankCode(null);
         request.setAccountType(AccountType.SAVINGS);
+        request.setPin("1234");
 
         assertThrows(AccountException.class, ()-> accountService.createAccount(request));
 
@@ -172,6 +179,7 @@ class AccountServiceImplTest {
         request.setCustomerEmail("lawjoh20gmail.com");
         request.setBankCode(BankCode.CITIBANK);
         request.setAccountType(AccountType.CHECKING);
+        request.setPin("1234");
 
         assertThrows(AccountException.class, ()-> accountService.createAccount(request));
 
@@ -186,6 +194,7 @@ class AccountServiceImplTest {
         request.setCustomerEmail("lawjoh20gmail.com");
         request.setBankCode(BankCode.ACCESS_BANK);
         request.setAccountType(null);
+        request.setPin("1234");
 
         assertThrows(AccountException.class, ()-> accountService.createAccount(request));
 
@@ -200,6 +209,7 @@ class AccountServiceImplTest {
         request.setCustomerEmail("lawjoh20@gmail.com");
         request.setBankCode(BankCode.ACCESS_BANK);
         request.setAccountType(AccountType.SAVINGS);
+        request.setPin("1234");
 
         CreateAccountResponse createdAccount = accountService.createAccount(request);
 

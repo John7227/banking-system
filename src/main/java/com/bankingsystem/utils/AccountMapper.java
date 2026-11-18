@@ -1,9 +1,11 @@
 package com.bankingsystem.utils;
 
 import com.bankingsystem.data.models.Account;
+import com.bankingsystem.data.models.Transaction;
 import com.bankingsystem.data.models.enums.AccountStatus;
 import com.bankingsystem.dtos.requests.CreateAccountRequest;
 import com.bankingsystem.dtos.response.CreateAccountResponse;
+import com.bankingsystem.dtos.response.DepositResponse;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -19,6 +21,7 @@ public class AccountMapper {
             account.setBalance(BigDecimal.ZERO);
             account.setStatus(AccountStatus.ACTIVE);
             account.setCreatedAt(LocalDate.now());
+            account.setPin(request.getPin());
             return account;
         }
 
@@ -32,5 +35,10 @@ public class AccountMapper {
         response.setBalance(account.getBalance());
         response.setCreatedAt(account.getCreatedAt());
         return response;
+    }
+
+    public static DepositResponse toDepositResponse(Account account, Transaction transaction) {
+        DepositResponse response = new DepositResponse();
+
     }
 }
