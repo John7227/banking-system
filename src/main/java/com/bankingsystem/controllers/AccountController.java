@@ -1,6 +1,7 @@
 package com.bankingsystem.controllers;
 
 import com.bankingsystem.dtos.requests.CreateAccountRequest;
+import com.bankingsystem.dtos.requests.DepositRequest;
 import com.bankingsystem.dtos.response.ApiResponse;
 import com.bankingsystem.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,15 @@ public class AccountController {
     public ResponseEntity<?> findAccountByAccountNumber(@PathVariable String accountNumber) {
         try{
             return new ResponseEntity<>(new ApiResponse(true, accountService.findAccountByAccountNumber(accountNumber)), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ApiResponse(false, e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/Deposit")
+    public ResponseEntity<?> deposit(@RequestBody DepositRequest request) {
+        try{
+            return new ResponseEntity<>(new ApiResponse(true, accountService.deposit(request)), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(new ApiResponse(false, e.getMessage()), HttpStatus.BAD_REQUEST);
         }
