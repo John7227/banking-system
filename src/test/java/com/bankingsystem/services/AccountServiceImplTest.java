@@ -260,6 +260,8 @@ class AccountServiceImplTest {
         DepositResponse response = new DepositResponse();
 
         assertEquals(new BigDecimal("500.00"), response.getNewBalance());
+        assertEquals(new BigDecimal("500.00"), response.getDepositedAmount());
+
 
     }
 
