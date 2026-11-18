@@ -5,6 +5,7 @@ import com.bankingsystem.data.models.Bank;
 import com.bankingsystem.data.models.Customer;
 import com.bankingsystem.data.models.enums.AccountType;
 import com.bankingsystem.data.models.enums.BankCode;
+import com.bankingsystem.data.models.enums.TransactionStatus;
 import com.bankingsystem.data.repositories.AccountRepository;
 import com.bankingsystem.data.repositories.BankRepository;
 import com.bankingsystem.data.repositories.CustomerRepository;
@@ -244,6 +245,7 @@ class AccountServiceImplTest {
     @Test
     public void testDepositMoney_increasesBalance_andSavesTransaction() {
         assertEquals(0, accountRepository.count());
+        assertEquals(0, transactionRepository.count());
 
         CreateAccountRequest request = new CreateAccountRequest();
         request.setCustomerEmail("lawjoh20@gmail.com");
@@ -261,7 +263,10 @@ class AccountServiceImplTest {
 
         assertEquals(new BigDecimal("500.00"), response.getNewBalance());
         assertEquals(new BigDecimal("500.00"), response.getDepositedAmount());
-
+        assertEquals(TransactionStatus.SUCCESSFUL, response.getStatus());
+        assertNotNull(response.getTransactionId());
+        assertEquals(1, transactionRepository.count());
+        assertEquals(1, accountRepository.count());
 
     }
 
