@@ -8,6 +8,7 @@ import com.bankingsystem.data.models.enums.BankCode;
 import com.bankingsystem.data.repositories.AccountRepository;
 import com.bankingsystem.data.repositories.BankRepository;
 import com.bankingsystem.data.repositories.CustomerRepository;
+import com.bankingsystem.data.repositories.TransactionRepository;
 import com.bankingsystem.dtos.requests.CreateAccountRequest;
 import com.bankingsystem.dtos.response.CreateAccountResponse;
 import com.bankingsystem.exceptions.AccountException;
@@ -35,6 +36,9 @@ class AccountServiceImplTest {
     @Autowired
     private CustomerRepository customerRepository;
 
+    @Autowired
+    private TransactionRepository transactionRepository;
+
     private String bankId;
     private String customerId;
 
@@ -43,6 +47,7 @@ class AccountServiceImplTest {
         accountRepository.deleteAll();
         bankRepository.deleteAll();
         customerRepository.deleteAll();
+        transactionRepository.deleteAll();
 
         Bank bank = new Bank();
         bank.setName("Access Bank");
