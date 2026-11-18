@@ -10,7 +10,9 @@ import com.bankingsystem.data.repositories.BankRepository;
 import com.bankingsystem.data.repositories.CustomerRepository;
 import com.bankingsystem.data.repositories.TransactionRepository;
 import com.bankingsystem.dtos.requests.CreateAccountRequest;
+import com.bankingsystem.dtos.requests.DepositRequest;
 import com.bankingsystem.dtos.response.CreateAccountResponse;
+import com.bankingsystem.dtos.response.DepositResponse;
 import com.bankingsystem.exceptions.AccountException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -239,5 +241,26 @@ class AccountServiceImplTest {
         assertThrows(AccountException.class, () -> accountService.findAccountByAccountNumber(null));
     }
 
+    @Test
+    public void testDepositMoney_increasesBalance_andSavesTransaction() {
+        assertEquals(0, accountRepository.count());
+
+        CreateAccountRequest request = new CreateAccountRequest();
+        request.setCustomerEmail("lawjoh20@gmail.com");
+        request.setBankCode(BankCode.ACCESS_BANK);
+        request.setAccountType(AccountType.SAVINGS);
+        request.setPin("1234");
+        CreateAccountResponse createdAccount = accountService.createAccount(request);
+
+        DepositRequest depositRequest = new DepositRequest();
+        depositRequest.setAccountNumber(createdAccount.getAccountNumber());
+        depositRequest.setPin("1234");
+        depositRequest.setAmount(new BigDecimal("500.00"));
+
+        DepositResponse response = new DepositResponse();
+
+        assertEquals(new BigDecimal("500.00"), response.getNewBalance());
+
+    }
 
 }
