@@ -39,6 +39,12 @@ public class AccountMapper {
 
     public static DepositResponse toDepositResponse(Account account, Transaction transaction) {
         DepositResponse response = new DepositResponse();
-
+        response.setAccountNumber(account.getAccountNumber());
+        response.setDepositedAmount(transaction.getAmount());
+        response.setDepositedAmount(account.getBalance());
+        response.setTransactionId(transaction.getId());
+        response.setStatus(transaction.getStatus());
+        response.setCreatedAt(transaction.getCreatedAt());
+        return  response;
     }
 }
