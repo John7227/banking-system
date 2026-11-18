@@ -308,7 +308,31 @@ class AccountServiceImplTest {
 
     @Test
     public void testDepositMoneyWithZeroAmount_ThrowsException() {
+        assertEquals(0, accountRepository.count());
+        assertEquals(0, transactionRepository.count());
 
+        CreateAccountRequest request = new CreateAccountRequest();
+        request.setCustomerEmail("lawjoh20@gmail.com");
+        request.setBankCode(BankCode.ACCESS_BANK);
+        request.setAccountType(AccountType.SAVINGS);
+        request.setPin("1234");
+        CreateAccountResponse createdAccount = accountService.createAccount(request);
+
+        DepositRequest depositRequest = new DepositRequest();
+        depositRequest.setAccountNumber(createdAccount.getAccountNumber());
+        depositRequest.setPin("1234");
+        depositRequest.setAmount(BigDecimal.ZERO);
+
+        assertThrows(AccountException.class, ()-> accountService.deposit(depositRequest));
+
+        Optional<Account> result = accountRepository.findByAccountNumber(createdAccount.getAccountNumber());
+        if(result.isEmpty()) {
+            throw new AccountException("Account not found");
+        }
+        Account updatedAccount = result.get();
+        assertEquals(BigDecimal.ZERO, updatedAccount.getBalance());
+        assertEquals(1, accountRepository.count());
+        assertEquals(0, transactionRepository.count());
     }
 
 
