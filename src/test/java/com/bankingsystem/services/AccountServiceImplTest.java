@@ -191,4 +191,37 @@ class AccountServiceImplTest {
 
         assertEquals(0, accountRepository.count());
     }
+
+    @Test
+    public void testFindAccountByAccountNumber_returnsAccount() {
+        assertEquals(0, accountRepository.count());
+
+        CreateAccountRequest request = new CreateAccountRequest();
+        request.setCustomerEmail("lawjoh20@gmail.com");
+        request.setBankCode(BankCode.ACCESS_BANK);
+        request.setAccountType(AccountType.SAVINGS);
+
+        CreateAccountResponse createdAccount = accountService.createAccount(request);
+
+        CreateAccountResponse foundAccount = accountService.findAccountByAccountNumber(createdAccount.getAccountNumber());
+
+        assertEquals(createdAccount.getId(), foundAccount.getId());
+        assertEquals(createdAccount.getAccountNumber(), foundAccount.getAccountNumber());
+        assertEquals(AccountType.SAVINGS, foundAccount.getAccountType());
+        assertEquals(1, accountRepository.count());
+    }
+
+    @Test
+    public void testFindAccountByAccountNumber_whenAccountDoesNotExist_throwsException() {
+        assertEquals(0, accountRepository.count());
+
+        assertThrows(AccountException.class, () -> accountService.findAccountByAccountNumber("9999999999"));
+        assertEquals(0, accountRepository.count());
+    }
+
+    @Test
+    public void testFindAccountByAccountNumber_whenNumberIsNull_throwsException() {
+        assertThrows(AccountException.class, () -> accountService.findAccountByAccountNumber(null));
+    }
+
 }
